@@ -32,11 +32,17 @@ TypeScript без сборки: Node 24 запускает `.ts` напряму�
 ## Docker
 
 ```
-docker build -t brain-bot .
-docker run -d --restart always --name brain-bot \
-  -e BOT_TOKEN=... -e OWNER_ID=... -e VAULT_PATH=/vault \
-  -v /absolute/path/to/second-brain:/vault \
-  brain-bot
+docker compose up -d --build
 ```
 
-`--restart always` + «Start at login» в Docker Desktop = бот переживает ребут.
+Всё остальное — в `compose.yaml`: токен берётся из того же `.env`, vault
+монтируется в `/vault` относительным путём (репы лежат рядом).
+
+```
+docker compose logs -f    # смотреть, что ловит
+docker compose down       # остановить
+```
+
+`restart: always` + «Start at login» в Docker Desktop = бот переживает ребут.
+Контейнер и локальный `npm start` одновременно жить не могут — Telegram отдаёт
+очередь одному потребителю, второй получит `409 Conflict`.

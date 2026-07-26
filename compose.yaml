@@ -1,0 +1,13 @@
+services:
+  bot:
+    build: .
+    restart: always
+    env_file: .env
+    environment:
+      # Перекрывает хостовый VAULT_PATH из .env — внутри контейнера vault смонтирован сюда.
+      VAULT_PATH: /vault
+      # Иначе контейнер живёт в UTC и метки времени в raw.md разъезжаются с твоими.
+      TZ: Europe/Kyiv
+    volumes:
+      # Путь относительный: репы лежат рядом, абсолютный путь в файл не зашивается.
+      - ../second-brain:/vault
