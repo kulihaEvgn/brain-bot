@@ -1,0 +1,13 @@
+{
+  "name": "brain-bot",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "node --env-file-if-exists=.env src/bot.js",
+    "test": "node --test src/*.test.js"
+  },
+  "dependencies": {
+    "grammy": "^1.30.0"
+  }
+}
