@@ -16,6 +16,8 @@ export function formatLine(msg, now = new Date()) {
 
   const body = raw?.trim();
   if (!body) return null;
+  // /start и прочие команды — не мысли. Путь вида /etc/hosts под правило не попадает.
+  if (source !== "voice" && /^\/\w+(@\w+)?(\s|$)/.test(body)) return null;
 
   return `- [ ] ${stamp(now)} (${source}) ${body.replace(/\n/g, "\n  ")}\n`;
 }

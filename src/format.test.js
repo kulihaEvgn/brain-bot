@@ -31,6 +31,15 @@ test("нечего ловить — null", () => {
   assert.equal(formatLine({ text: "   " }, at), null);
 });
 
+test("команды не ловятся", () => {
+  assert.equal(formatLine({ text: "/start" }, at), null);
+  assert.equal(formatLine({ text: "/help меня" }, at), null);
+});
+
+test("путь со слешем — это мысль, не команда", () => {
+  assert.match(formatLine({ text: "/etc/hosts правится руками" }, at), /\(text\)/);
+});
+
 test("войс с подписью всё равно войс", () => {
   assert.match(formatLine({ voice: { file_id: "X" }, caption: "к" }, at), /\(voice\)/);
 });
