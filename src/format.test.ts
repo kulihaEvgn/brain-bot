@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { formatLine } from "./format.js";
+import { formatLine } from "./format.ts";
 
 const at = new Date(2026, 6, 26, 14, 30);
 
@@ -27,7 +27,7 @@ test("многострочное не рвёт пункт списка", () => {
 });
 
 test("нечего ловить — null", () => {
-  assert.equal(formatLine({ sticker: {} }, at), null);
+  assert.equal(formatLine({}, at), null); // стикер: ни text, ни caption, ни voice
   assert.equal(formatLine({ text: "   " }, at), null);
 });
 
@@ -37,9 +37,12 @@ test("команды не ловятся", () => {
 });
 
 test("путь со слешем — это мысль, не команда", () => {
-  assert.match(formatLine({ text: "/etc/hosts правится руками" }, at), /\(text\)/);
+  assert.equal(formatLine({ text: "/etc/hosts правится руками" }, at), "- [ ] 2026-07-26 14:30 (text) /etc/hosts правится руками\n");
 });
 
 test("войс с подписью всё равно войс", () => {
-  assert.match(formatLine({ voice: { file_id: "X" }, caption: "к" }, at), /\(voice\)/);
+  assert.equal(
+    formatLine({ voice: { file_id: "X" }, caption: "к" }, at),
+    "- [ ] 2026-07-26 14:30 (voice) file_id:X\n",
+  );
 });

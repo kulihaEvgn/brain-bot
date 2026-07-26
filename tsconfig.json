@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "strict": true,
+    "types": ["node"],
+    "skipLibCheck": true, // grammy тянет node-fetch без типов — не наша забота
+
+    // Node запускает .ts напрямую, стирая типы. Отсюда — импорты с .ts,
+    // сборки нет, а tsc работает только проверяльщиком.
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "erasableSyntaxOnly": true,
+    "verbatimModuleSyntax": true
+  },
+  "include": ["src"]
+}

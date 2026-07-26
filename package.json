@@ -4,10 +4,15 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "start": "node --env-file-if-exists=.env src/bot.js",
-    "test": "node --test src/*.test.js"
+    "start": "node --env-file-if-exists=.env src/bot.ts",
+    "test": "node --test src/*.test.ts",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "grammy": "^1.30.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "^5.8.0"
   }
 }

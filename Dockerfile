@@ -3,4 +3,4 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci --omit=dev
 COPY src ./src
-CMD ["node", "src/bot.js"]
+CMD ["node", "src/bot.ts"]

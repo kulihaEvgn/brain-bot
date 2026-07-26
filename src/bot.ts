@@ -1,7 +1,7 @@
 import { Bot } from "grammy";
 import { appendFile } from "node:fs/promises";
 import { join } from "node:path";
-import { formatLine } from "./format.js";
+import { formatLine } from "./format.ts";
 
 const { BOT_TOKEN, OWNER_ID, VAULT_PATH } = process.env;
 if (!BOT_TOKEN || !OWNER_ID || !VAULT_PATH) {

@@ -1,14 +1,21 @@
-const pad = (n) => String(n).padStart(2, "0");
+/** Ровно то, что функции нужно от сообщения — не весь grammy-шный Message. */
+type Incoming = {
+  text?: string;
+  caption?: string;
+  voice?: { file_id: string };
+};
 
-const stamp = (d) =>
+const pad = (n: number) => String(n).padStart(2, "0");
+
+const stamp = (d: Date) =>
   `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
 
 /**
  * Строка для raw.md, либо null если ловить нечего (стикер, картинка без подписи).
  * Переносы строк превращаются в отступ, чтобы не рвать пункт markdown-списка.
  */
-export function formatLine(msg, now = new Date()) {
-  const [source, raw] = msg.voice
+export function formatLine(msg: Incoming, now = new Date()): string | null {
+  const [source, raw]: [string, string | undefined] = msg.voice
     ? ["voice", `file_id:${msg.voice.file_id}`]
     : msg.text
       ? ["text", msg.text]

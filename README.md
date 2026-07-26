@@ -23,7 +23,11 @@ npm start
 
 ```
 npm test
+npm run typecheck
 ```
+
+TypeScript без сборки: Node 24 запускает `.ts` напрямую, стирая типы.
+Но стирает он их **не проверяя** — за проверку отвечает `npm run typecheck`.
 
 ## Docker
 
